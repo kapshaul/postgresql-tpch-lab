@@ -93,7 +93,7 @@ pr_order(order_t *o, int mode)
         last_mode = mode;
         }
     PR_STRT(fp_o);
-    PR_HUGE(fp_o, o->okey);
+    PR_INT(fp_o, o->okey);
     PR_INT(fp_o, o->custkey);
     PR_CHR(fp_o, o->orderstatus);
     PR_MONEY(fp_o, o->totalprice);
@@ -132,7 +132,7 @@ pr_line(order_t *o, int mode)
     for (i = 0; i < o->lines; i++)
         {
         PR_STRT(fp_l);
-        PR_HUGE(fp_l, o->l[i].okey);
+        PR_INT(fp_l, o->l[i].okey);
         PR_INT(fp_l, o->l[i].partkey);
         PR_INT(fp_l, o->l[i].suppkey);
         PR_INT(fp_l, o->l[i].lcnt);

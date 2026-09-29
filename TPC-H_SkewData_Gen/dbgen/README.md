@@ -1,3 +1,8 @@
+# Main Custom Change
+
+The distributed version of dbgen is not introducing skewness for the `orderkey` in the lineitem table. However, this custom version introduces skewness for `orderkey`.
+
+
 # tpch_skew_linux
 
 TPC-H with skew factor (Zipf distribution) enabled. Use `dbgen` with `-z` option to input the skew when generating benchmark data. There are several makefile available for different OSs and settings. Try them if the default makefile doesn't work.
@@ -75,7 +80,3 @@ To generate updates for a SF=1 (1GB), use:
 	dbgen -v -O s -s 1
 	dbgen -v -U 1 -s 1
 ```
-
-
-
-

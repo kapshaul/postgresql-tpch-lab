@@ -381,7 +381,7 @@ gen_tbl (int tnum, long start, long count, long upd_num)
 		case ORDER_LINE:
 		  mk_sparse (sk, i,
 					 (upd_num == 0) ? 0 : 1 + upd_num / (10000 / refresh));
-		  mk_order (sk, &o);
+		  mk_order (i, &o);
 		  /* tdefs[tnum].loader[direct] (&o, upd_num); */
 		  break;
 		case SUPP:
@@ -947,7 +947,7 @@ main (int ac, char **av)
 #endif
 
   fprintf (stderr,
-		   "TPC-D Population Generator (Version %d.%d.%d%s)\n",
+		   "TPC-H Population Generator (Version %d.%d.%d%s)\n",
 		   VERSION, RELEASE, MODIFICATION, PATCH);
   fprintf (stderr, "Copyright %s %s\n", TPC, C_DATES);
 

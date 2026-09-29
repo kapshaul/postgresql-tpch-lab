@@ -28,7 +28,7 @@ int ld_cust    PROTO((customer_t * c, int mode));
 
 typedef struct
 {
-    HUGE_T(okey);
+    long            okey;
     long            partkey;
     long            suppkey;
     long            lcnt;
@@ -49,7 +49,7 @@ typedef struct
 
 typedef struct
 {
-    HUGE_T(okey);
+    long            okey;
     long            custkey;
     char            orderstatus;
     long            totalprice;
@@ -67,7 +67,7 @@ typedef struct
 #ifdef SUPPORT_64BITS
 long mk_order  PROTO((DSS_HUGE index, order_t * o));
 #else
-long mk_order  PROTO((long index[], order_t * o));
+//long mk_order  PROTO((long index[], order_t * o));
 #endif /* SUPPORT_64BITS */
 int pr_order   PROTO((order_t * o, int mode));
 int ld_order   PROTO((order_t * o, int mode));

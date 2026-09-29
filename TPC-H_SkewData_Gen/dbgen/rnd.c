@@ -480,6 +480,13 @@ SkewIntCount(long nStream, double skewVal, long n)
 		/* skewVal is between 0 and 4 */
 		zipf = skewVal;
 	}
+	
+	/* If no values have been generated for this stream as yet, get multiplier */
+	if(NumDistinctValuesGenerated[nStream]==0)
+	{
+		Multiplier[nStream] = GetMultiplier(n, zipf);
+	}
+	multiplier = Multiplier[nStream];
 
 	/*  
 	 * check how many distinct values for this column
@@ -487,7 +494,6 @@ SkewIntCount(long nStream, double skewVal, long n)
 	 */
 	numDistinctValuesGenerated = NumDistinctValuesGenerated[nStream] + 1;
 
-	multiplier = Multiplier[nStream];
 	/*
 	* zipf is guaranteed to be in the range 0..4 
 	* pick the multiplier 

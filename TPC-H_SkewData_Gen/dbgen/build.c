@@ -99,11 +99,7 @@ mk_cust(long n_cust, customer_t *c)
  * generate the numbered order and its associated lineitems
  */
 long
-#ifdef SUPPORT_64BITS
-mk_order(DSS_HUGE index, order_t *o)
-#else
-mk_order(long index[], order_t *o)
-#endif /* SUPPORT_64BITS */
+mk_order(long index, order_t *o)
 {
    long      lcnt;
    long      rprice;
@@ -128,7 +124,7 @@ mk_order(long index[], order_t *o)
     if (asc_date == NULL)
         asc_date = mk_ascdate();
 
-    HUGE_SET(index, o->okey);
+    o->okey = index;
     do
         {
         RANDOM(o->custkey, O_CKEY_MIN, O_CKEY_MAX, O_CKEY_SD, skew, O_CKEY_MAX);
@@ -159,8 +155,8 @@ mk_order(long index[], order_t *o)
 	RANDOM(o->lines, O_LCNT_MIN, O_LCNT_MAX, O_LCNT_SD, 0, (O_LCNT_MAX-O_LCNT_MIN+1));
     for (lcnt = 0; lcnt < o->lines; lcnt++)
         {
-        HUGE_SET(o->okey, o->l[lcnt].okey);
         o->l[lcnt].lcnt = lcnt + 1;
+        RANDOM(o->l[lcnt].okey, L_OKEY_MIN, L_OKEY_MAX, L_OKEY_SD, skew, L_LINE_SIZE);
 		RANDOM(o->l[lcnt].quantity, L_QTY_MIN, L_QTY_MAX, L_QTY_SD, skew, L_LCNT_MAX);
 	    RANDOM(o->l[lcnt].discount, L_DCNT_MIN, L_DCNT_MAX, L_DCNT_SD, skew, L_LCNT_MAX);
         RANDOM(o->l[lcnt].tax, L_TAX_MIN, L_TAX_MAX, L_TAX_SD, skew, L_LCNT_MAX);
@@ -222,7 +218,7 @@ mk_order(long index[], order_t *o)
         o->orderstatus = 'F';
 #else /* New method for generating skewed data for ORDERS & LINEITEM  */
 
-	numLines = SkewIntCount (L_OKEY_SD, skew, L_LINE_SIZE);
+	numLines = SkewIntCount (L_KEY_SD, skew, L_LINE_SIZE);
 
 	/* make sure that we get enough rows for lineitem */
 	if(numLines < O_LCNT_MAX)
@@ -254,8 +250,8 @@ mk_order(long index[], order_t *o)
 		o->lines = count;
 		for (lcnt = 0; lcnt < count ; lcnt++)
 		{
-			HUGE_SET(o->okey, o->l[lcnt].okey);
 			o->l[lcnt].lcnt = (i*O_LCNT_MAX) + lcnt + 1;
+            RANDOM(o->l[lcnt].okey, L_OKEY_MIN, L_OKEY_MAX, L_OKEY_SD, skew, L_LINE_SIZE);
 			RANDOM(o->l[lcnt].quantity, L_QTY_MIN, L_QTY_MAX, L_QTY_SD, skew, L_LINE_SIZE);
 			RANDOM(o->l[lcnt].discount, L_DCNT_MIN, L_DCNT_MAX, L_DCNT_SD, skew, L_LINE_SIZE);
 			RANDOM(o->l[lcnt].tax, L_TAX_MIN, L_TAX_MAX, L_TAX_SD, skew, L_LINE_SIZE);

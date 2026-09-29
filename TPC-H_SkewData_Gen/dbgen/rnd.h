@@ -69,7 +69,8 @@ seed_t     Seed[MAX_STREAM + 1] =
     {SUPP,   753643799,  0, 0},      /* BBB type     45 */
     {SUPP,   202794285,  0, 0},      /* BBB comment  46 */
     {SUPP,   715851524,  0, 0},       /* BBB junk    47 */
-    {LINE,   2095021727, 0, 0}       /* L_OKEY_SD    48 */
+    {LINE,   2095021727, 0, 0},       /* L_OKEY_SD    48 */
+    {LINE,   235821308, 0, 0}         /* L_KEY_SD    49 */
 };
 #else
 long     Seed[MAX_STREAM + 1] =
@@ -122,7 +123,8 @@ long     Seed[MAX_STREAM + 1] =
     753643799,                  /* BBB type     45 */
     202794285,                  /* BBB comment  46 */
     715851524,                  /* BBB junk     47 */
-    2095021727                  /* L_OKEY_SD    48 */
+    2095021727,                 /* L_OKEY_SD    48 */
+    235821308                   /* L_KEY_SD     49 */
 };
 /*
  *  Extensions to dbgen for generation of skewed data.
